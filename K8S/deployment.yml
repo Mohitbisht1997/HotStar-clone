@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hotstar-deployment
+  namespace: hotstar
 spec:
-  replicas: 1  
+  replicas: 2 
   selector:
     matchLabels:
       app: hotstar
@@ -13,7 +14,7 @@ spec:
         app: hotstar
     spec:
       containers:
-      - name: hotstar
-        image: gashok13193/test:latest
+      - name: ctr1
+        image: mohit993/hotstar:latest
         ports:
         - containerPort: 3000
