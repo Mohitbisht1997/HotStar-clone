@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotstar-deployment
+  namespace: hotstar
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: hotstar
+  template:
+    metadata:
+      labels:
+        app: hotstar
+    spec:
+      containers:
+      - name: ctr1
+        image: mohit993/hotstar:latest
+        ports:
+        - containerPort: 3000
+
+---
+       apiVersion: v1
+kind: Service
+metadata:
+  name: hotstar-service
+  namespace: hotstar
+spec:
+  selector:
+    app: hotstar
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposed by the service externally (outside the cluster)
+      targetPort: 3000  # Port your application listens on inside the pods
+  type: LoadBalancer
